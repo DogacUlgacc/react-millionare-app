@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
 export default function Quiz() {
     const questionArray = [
@@ -225,22 +225,57 @@ export default function Quiz() {
         },
     ];
 
+    const [randomQuestionIndex, setRandomQuestionIndex] = useState(null);
+    const [selectedAnswers, setSelectedAnswers] = useState(
+        Array(questionArray[0]?.answers.length).fill(null)
+    );
+
+    useEffect(() => {
+        const newRandomIndex = Math.floor(Math.random() * questionArray.length);
+        setRandomQuestionIndex(newRandomIndex);
+    }, []);
+
+    const handleClick = (index) => {
+        const selectedAnswer =
+            questionArray[randomQuestionIndex]?.answers[index];
+
+        if (selectedAnswer && selectedAnswer.correct) {
+            const updatedAnswers = [...selectedAnswers];
+            updatedAnswers[index] = true;
+            setSelectedAnswers(updatedAnswers);
+        } else {
+            const updatedAnswers = [...selectedAnswers];
+            updatedAnswers[index] = false;
+            setSelectedAnswers(updatedAnswers);
+        }
+    };
+
     const randomQuestion = () => {
-        const randomQuestionIndex = Math.floor(Math.random() * 25);
+        if (randomQuestionIndex === null) {
+            return null;
+        }
+
         const show = questionArray[randomQuestionIndex];
         return (
             <div className="quiz">
                 <div className="question">{show.question}</div>
                 <div className="answers">
                     {show.answers.map((answer, index) => (
-                        <div
+                        <button
+                            onClick={() => handleClick(index)}
                             className={`answer answer-${String.fromCharCode(
                                 65 + index
-                            )}`}
+                            )} ${
+                                selectedAnswers[index] === true
+                                    ? "correct"
+                                    : selectedAnswers[index] === false
+                                    ? "wrong"
+                                    : ""
+                            }`}
                             key={index}
                         >
                             {answer.text}
-                        </div>
+                        </button>
                     ))}
                 </div>
             </div>

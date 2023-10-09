@@ -82,6 +82,7 @@
     font-weight: 300;
     margin: 0px 10px 20px 10px;
     cursor: pointer;
+    color: #fff;
 }
 
 .answer:hover,
