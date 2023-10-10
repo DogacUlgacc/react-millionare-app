@@ -230,6 +230,8 @@ export default function Quiz() {
         Array(questionArray[0]?.answers.length).fill(null)
     );
 
+    const [disabledButton, setDisabledButton] = useState(false);
+
     useEffect(() => {
         const newRandomIndex = Math.floor(Math.random() * questionArray.length);
         setRandomQuestionIndex(newRandomIndex);
@@ -238,16 +240,18 @@ export default function Quiz() {
     const handleClick = (index) => {
         const selectedAnswer =
             questionArray[randomQuestionIndex]?.answers[index];
-
-        if (selectedAnswer && selectedAnswer.correct) {
-            const updatedAnswers = [...selectedAnswers];
-            updatedAnswers[index] = true;
-            setSelectedAnswers(updatedAnswers);
-        } else {
-            const updatedAnswers = [...selectedAnswers];
-            updatedAnswers[index] = false;
-            setSelectedAnswers(updatedAnswers);
+        if (!disabledButton) {
+            if (selectedAnswer && selectedAnswer.correct) {
+                const updatedAnswers = [...selectedAnswers];
+                updatedAnswers[index] = true;
+                setSelectedAnswers(updatedAnswers);
+            } else {
+                const updatedAnswers = [...selectedAnswers];
+                updatedAnswers[index] = false;
+                setSelectedAnswers(updatedAnswers);
+            }
         }
+        setDisabledButton(true);
     };
 
     const randomQuestion = () => {
