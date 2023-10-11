@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
 }
+
 .app {
     display: flex;
     justify-content: space-between;
@@ -151,14 +152,17 @@
     padding: 5px;
     border-radius: 5px;
 }
+
 .moneyListItem.active {
     background: teal;
 }
+
 .moneyListItemQuestion {
     font-size: 18px;
     font-weight: 200;
     width: 30%;
 }
+
 .moneyListItemAmount {
     font-size: 20px;
     font-weight: 500;

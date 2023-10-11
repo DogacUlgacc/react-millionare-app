@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
-export default function Timer() {
-    const [timer, setTimer] = useState(3);
-
+export default function Timer({ timer, setTimer }) {
     useEffect(() => {
         const countdown = setInterval(() => {
             if (timer > 0) {
@@ -14,5 +12,9 @@ export default function Timer() {
         };
     }, [timer]);
 
-    return <div className="timer">{timer}</div>;
+    return (
+        <div className="top">
+            <div className="timer">{timer}</div>
+        </div>
+    );
 }

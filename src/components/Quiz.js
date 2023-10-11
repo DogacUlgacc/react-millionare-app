@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-
-export default function Quiz() {
+import { timer, setTimer } from "./Timer";
+export default function Quiz({ timer, setTimer }) {
     const questionArray = [
         {
             question: "What is the capital of France?",
@@ -240,15 +240,18 @@ export default function Quiz() {
     const handleClick = (index) => {
         const selectedAnswer =
             questionArray[randomQuestionIndex]?.answers[index];
-        if (!disabledButton) {
-            if (selectedAnswer && selectedAnswer.correct) {
-                const updatedAnswers = [...selectedAnswers];
-                updatedAnswers[index] = true;
-                setSelectedAnswers(updatedAnswers);
-            } else {
-                const updatedAnswers = [...selectedAnswers];
-                updatedAnswers[index] = false;
-                setSelectedAnswers(updatedAnswers);
+        if (timer !== 0) {
+            if (!disabledButton) {
+                setTimer(0);
+                if (selectedAnswer && selectedAnswer.correct) {
+                    const updatedAnswers = [...selectedAnswers];
+                    updatedAnswers[index] = true;
+                    setSelectedAnswers(updatedAnswers);
+                } else {
+                    const updatedAnswers = [...selectedAnswers];
+                    updatedAnswers[index] = false;
+                    setSelectedAnswers(updatedAnswers);
+                }
             }
         }
         setDisabledButton(true);
@@ -261,7 +264,7 @@ export default function Quiz() {
 
         const show = questionArray[randomQuestionIndex];
         return (
-            <div className="quiz">
+            <div className="quiz ">
                 <div className="question">{show.question}</div>
                 <div className="answers">
                     {show.answers.map((answer, index) => (
@@ -284,6 +287,7 @@ export default function Quiz() {
                 </div>
             </div>
         );
+        randomQuestion();
     };
 
     return <div> {randomQuestion()} </div>;
