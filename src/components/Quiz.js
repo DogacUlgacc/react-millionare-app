@@ -242,8 +242,10 @@ export default function Quiz({ timer, setTimer }) {
     const handleClick = (index) => {
         const selectedAnswer =
             questionArray[randomQuestionIndex]?.answers[index];
+
         if (timer !== 0 && !disabledButton) {
             setTimer(0);
+
             if (selectedAnswer && selectedAnswer.correct) {
                 const updatedAnswers = [...selectedAnswers];
                 updatedAnswers[index] = true;
@@ -257,22 +259,18 @@ export default function Quiz({ timer, setTimer }) {
                     randomQuestionIndex
                 ]?.answers.findIndex((answer) => answer.correct);
                 if (correctAnswerIndex !== -1) {
-                    console.log(
-                        `The correct answer is at index ${correctAnswerIndex}`
-                    );
+                    const updatedAnswersWrong = [...selectedAnswers];
+                    updatedAnswersWrong[index] = false;
+                    setSelectedAnswers(updatedAnswersWrong);
+
+                    setTimeout(() => {
+                        const updatedAnswers = [...updatedAnswersWrong];
+                        updatedAnswers[correctAnswerIndex] = true;
+                        setSelectedAnswers(updatedAnswers);
+                        setShowCorrectAnswer(correctAnswerIndex);
+                    }, 5000);
                 }
             }
-            // else if (selectedAnswer === null) {
-            //     const correctAnswerIndex = questionArray[
-            //         randomQuestionIndex
-            //     ]?.answers.findIndex((answer) => answer.correct);
-            //     if (correctAnswerIndex !== -1) {
-            //         const correctAnswer = correctAnswerIndex;
-            //         console.log(
-            //             `The correct answer is at index ${correctAnswerIndex}`
-            //         );
-            //     }
-            // }
         }
     };
 
@@ -283,7 +281,7 @@ export default function Quiz({ timer, setTimer }) {
 
         const show = questionArray[randomQuestionIndex];
         return (
-            <div className="quiz ">
+            <div className="quiz">
                 <div className="question">{show.question}</div>
                 <div className="answers">
                     {show.answers.map((answer, index) => (
@@ -297,7 +295,7 @@ export default function Quiz({ timer, setTimer }) {
                                     : selectedAnswers[index] === false
                                     ? "wrong"
                                     : ""
-                            }`}
+                            } ${index === showCorrectAnswer && "correct"}`}
                             key={index}
                         >
                             {answer.text}
@@ -306,8 +304,7 @@ export default function Quiz({ timer, setTimer }) {
                 </div>
             </div>
         );
-        randomQuestion();
     };
 
-    return <div> {randomQuestion()} </div>;
+    return <div>{randomQuestion()}</div>;
 }
