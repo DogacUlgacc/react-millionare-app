@@ -229,6 +229,7 @@ export default function Quiz({ timer, setTimer }) {
     const [selectedAnswers, setSelectedAnswers] = useState(
         Array(questionArray[0]?.answers.length).fill(null)
     );
+
     const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
     const [disabledButton, setDisabledButton] = useState(false);
@@ -247,11 +248,31 @@ export default function Quiz({ timer, setTimer }) {
                 const updatedAnswers = [...selectedAnswers];
                 updatedAnswers[index] = true;
                 setSelectedAnswers(updatedAnswers);
-            } else {
+            } else if (selectedAnswer && !selectedAnswer.correct) {
                 const updatedAnswers = [...selectedAnswers];
                 updatedAnswers[index] = false;
                 setSelectedAnswers(updatedAnswers);
+
+                const correctAnswerIndex = questionArray[
+                    randomQuestionIndex
+                ]?.answers.findIndex((answer) => answer.correct);
+                if (correctAnswerIndex !== -1) {
+                    console.log(
+                        `The correct answer is at index ${correctAnswerIndex}`
+                    );
+                }
             }
+            // else if (selectedAnswer === null) {
+            //     const correctAnswerIndex = questionArray[
+            //         randomQuestionIndex
+            //     ]?.answers.findIndex((answer) => answer.correct);
+            //     if (correctAnswerIndex !== -1) {
+            //         const correctAnswer = correctAnswerIndex;
+            //         console.log(
+            //             `The correct answer is at index ${correctAnswerIndex}`
+            //         );
+            //     }
+            // }
         }
     };
 
