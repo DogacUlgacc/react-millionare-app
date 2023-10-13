@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { timer, setTimer } from "./Timer";
 export default function Quiz({ timer, setTimer }) {
     const questionArray = [
         {
@@ -226,9 +225,11 @@ export default function Quiz({ timer, setTimer }) {
     ];
 
     const [randomQuestionIndex, setRandomQuestionIndex] = useState(null);
+
     const [selectedAnswers, setSelectedAnswers] = useState(
         Array(questionArray[0]?.answers.length).fill(null)
     );
+    const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
     const [disabledButton, setDisabledButton] = useState(false);
 
@@ -240,21 +241,18 @@ export default function Quiz({ timer, setTimer }) {
     const handleClick = (index) => {
         const selectedAnswer =
             questionArray[randomQuestionIndex]?.answers[index];
-        if (timer !== 0) {
-            if (!disabledButton) {
-                setTimer(0);
-                if (selectedAnswer && selectedAnswer.correct) {
-                    const updatedAnswers = [...selectedAnswers];
-                    updatedAnswers[index] = true;
-                    setSelectedAnswers(updatedAnswers);
-                } else {
-                    const updatedAnswers = [...selectedAnswers];
-                    updatedAnswers[index] = false;
-                    setSelectedAnswers(updatedAnswers);
-                }
+        if (timer !== 0 && !disabledButton) {
+            setTimer(0);
+            if (selectedAnswer && selectedAnswer.correct) {
+                const updatedAnswers = [...selectedAnswers];
+                updatedAnswers[index] = true;
+                setSelectedAnswers(updatedAnswers);
+            } else {
+                const updatedAnswers = [...selectedAnswers];
+                updatedAnswers[index] = false;
+                setSelectedAnswers(updatedAnswers);
             }
         }
-        setDisabledButton(true);
     };
 
     const randomQuestion = () => {
