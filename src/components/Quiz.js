@@ -225,13 +225,10 @@ export default function Quiz({ timer, setTimer }) {
     ];
 
     const [randomQuestionIndex, setRandomQuestionIndex] = useState(null);
-
     const [selectedAnswers, setSelectedAnswers] = useState(
         Array(questionArray[0]?.answers.length).fill(null)
     );
-
     const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
-
     const [disabledButton, setDisabledButton] = useState(false);
 
     useEffect(() => {
@@ -243,7 +240,7 @@ export default function Quiz({ timer, setTimer }) {
         const selectedAnswer =
             questionArray[randomQuestionIndex]?.answers[index];
 
-        if (timer !== 0 && !disabledButton) {
+        if (timer !== 0) {
             setTimer(0);
 
             if (selectedAnswer && selectedAnswer.correct) {
@@ -254,25 +251,38 @@ export default function Quiz({ timer, setTimer }) {
                 const updatedAnswers = [...selectedAnswers];
                 updatedAnswers[index] = false;
                 setSelectedAnswers(updatedAnswers);
+                setDisabledButton(true);
 
-                const correctAnswerIndex = questionArray[
-                    randomQuestionIndex
-                ]?.answers.findIndex((answer) => answer.correct);
-                if (correctAnswerIndex !== -1) {
-                    const updatedAnswersWrong = [...selectedAnswers];
-                    updatedAnswersWrong[index] = false;
-                    setSelectedAnswers(updatedAnswersWrong);
-
-                    setTimeout(() => {
-                        const updatedAnswers = [...updatedAnswersWrong];
+                setTimeout(() => {
+                    const correctAnswerIndex = questionArray[
+                        randomQuestionIndex
+                    ]?.answers.findIndex((answer) => answer.correct);
+                    if (correctAnswerIndex !== -1) {
+                        const updatedAnswers = [...selectedAnswers];
                         updatedAnswers[correctAnswerIndex] = true;
+                        updatedAnswers[index] = false; // Mark the selected option as incorrect
                         setSelectedAnswers(updatedAnswers);
-                        setShowCorrectAnswer(correctAnswerIndex);
-                    }, 5000);
-                }
+                    }
+                }, 3000);
             }
         }
     };
+
+    useEffect(() => {
+        if (timer === 0 && selectedAnswers.every((answer) => answer === null)) {
+            const correctAnswerIndex = questionArray[
+                randomQuestionIndex
+            ]?.answers.findIndex((answer) => answer.correct);
+            if (correctAnswerIndex !== -1) {
+                setTimeout(() => {
+                    const updatedAnswers = [...selectedAnswers];
+                    updatedAnswers[correctAnswerIndex] = true;
+                    setSelectedAnswers(updatedAnswers);
+                    setShowCorrectAnswer(correctAnswerIndex);
+                }, 3000); // 3-second delay using setTimeout
+            }
+        }
+    }, [timer, selectedAnswers, randomQuestionIndex, questionArray]);
 
     const randomQuestion = () => {
         if (randomQuestionIndex === null) {
@@ -295,8 +305,9 @@ export default function Quiz({ timer, setTimer }) {
                                     : selectedAnswers[index] === false
                                     ? "wrong"
                                     : ""
-                            } ${index === showCorrectAnswer && "correct"}`}
+                            } ${index === showCorrectAnswer ? "correct" : ""}`}
                             key={index}
+                            disabled={disabledButton}
                         >
                             {answer.text}
                         </button>
