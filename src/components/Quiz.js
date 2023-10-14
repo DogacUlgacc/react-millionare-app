@@ -197,7 +197,7 @@ export default function Quiz({ timer, setTimer }) {
             question:
                 "Which continent is known as the 'Land of the Rising Sun'?",
             answers: [
-                { text: "Asia", correct: false },
+                { text: "Europe", correct: false },
                 { text: "Australia", correct: false },
                 { text: "North America", correct: false },
                 { text: "Asia", correct: true },
@@ -230,6 +230,25 @@ export default function Quiz({ timer, setTimer }) {
     );
     const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
     const [disabledButton, setDisabledButton] = useState(false);
+    const [loadNewQuestion, setLoadNewQuestion] = useState(false);
+
+    useEffect(() => {
+        if (loadNewQuestion) {
+            setTimeout(() => {
+                const newRandomIndex = Math.floor(
+                    Math.random() * questionArray.length
+                );
+                setRandomQuestionIndex(newRandomIndex);
+                setTimer(30);
+                setLoadNewQuestion(false);
+                setDisabledButton(false);
+                setShowCorrectAnswer(false);
+                setSelectedAnswers(
+                    Array(questionArray[0]?.answers.length).fill(null)
+                );
+            }, 5000);
+        }
+    }, [loadNewQuestion, questionArray]);
 
     useEffect(() => {
         const newRandomIndex = Math.floor(Math.random() * questionArray.length);
@@ -247,6 +266,7 @@ export default function Quiz({ timer, setTimer }) {
                 const updatedAnswers = [...selectedAnswers];
                 updatedAnswers[index] = true;
                 setSelectedAnswers(updatedAnswers);
+                setLoadNewQuestion(true);
             } else if (selectedAnswer && !selectedAnswer.correct) {
                 const updatedAnswers = [...selectedAnswers];
                 updatedAnswers[index] = false;
@@ -260,7 +280,7 @@ export default function Quiz({ timer, setTimer }) {
                     if (correctAnswerIndex !== -1) {
                         const updatedAnswers = [...selectedAnswers];
                         updatedAnswers[correctAnswerIndex] = true;
-                        updatedAnswers[index] = false; // Mark the selected option as incorrect
+                        updatedAnswers[index] = false;
                         setSelectedAnswers(updatedAnswers);
                     }
                 }, 3000);
@@ -279,7 +299,7 @@ export default function Quiz({ timer, setTimer }) {
                     updatedAnswers[correctAnswerIndex] = true;
                     setSelectedAnswers(updatedAnswers);
                     setShowCorrectAnswer(correctAnswerIndex);
-                }, 3000); // 3-second delay using setTimeout
+                }, 3000);
             }
         }
     }, [timer, selectedAnswers, randomQuestionIndex, questionArray]);
