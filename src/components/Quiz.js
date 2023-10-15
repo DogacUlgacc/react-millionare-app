@@ -237,21 +237,35 @@ export default function Quiz({
     const [disabledButton, setDisabledButton] = useState(false);
     const [loadNewQuestion, setLoadNewQuestion] = useState(false);
 
+    const [millionare, setMillionare] = useState(false);
+
+    useEffect(() => {
+        if (millionare) {
+            alert("Congratulations, you are a millionaire!!");
+        }
+    });
     useEffect(() => {
         if (loadNewQuestion) {
+            if (questionNumber < 15) {
+                setTimeout(() => {
+                    const newRandomIndex = Math.floor(
+                        Math.random() * questionArray.length
+                    );
+                    setQuestionNumber((questionNumber) => questionNumber + 1);
+                    setRandomQuestionIndex(newRandomIndex);
+                    setTimer(30);
+                    setLoadNewQuestion(false);
+                    setDisabledButton(false);
+                    setShowCorrectAnswer(false);
+                    setSelectedAnswers(
+                        Array(questionArray[0]?.answers.length).fill(null)
+                    );
+                }, 5000);
+            }
             setTimeout(() => {
-                const newRandomIndex = Math.floor(
-                    Math.random() * questionArray.length
-                );
-                setQuestionNumber((questionNumber) => questionNumber + 1);
-                setRandomQuestionIndex(newRandomIndex);
-                setTimer(30);
-                setLoadNewQuestion(false);
-                setDisabledButton(false);
-                setShowCorrectAnswer(false);
-                setSelectedAnswers(
-                    Array(questionArray[0]?.answers.length).fill(null)
-                );
+                if (questionNumber === 15) {
+                    setMillionare(true);
+                }
             }, 5000);
         }
     }, [loadNewQuestion, questionArray]);

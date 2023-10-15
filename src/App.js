@@ -5,7 +5,7 @@ import Timer from "./components/Timer";
 import Pyramid from "./components/Pyramid";
 function App() {
     const [timer, setTimer] = useState(30);
-    const [questionNumber, setQuestionNumber] = useState(1);
+    const [questionNumber, setQuestionNumber] = useState(14);
 
     return (
         <div className="app">
