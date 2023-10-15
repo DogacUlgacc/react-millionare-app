@@ -45,6 +45,10 @@
     height: 50%;
 }
 
+.hideTimer {
+    display: none;
+}
+
 .quiz {
     height: 100%;
     display: flex;

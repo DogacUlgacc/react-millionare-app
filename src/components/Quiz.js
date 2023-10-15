@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-export default function Quiz({ timer, setTimer }) {
+export default function Quiz({
+    timer,
+    setTimer,
+    questionNumber,
+    setQuestionNumber,
+}) {
     const questionArray = [
         {
             question: "What is the capital of France?",
@@ -238,6 +243,7 @@ export default function Quiz({ timer, setTimer }) {
                 const newRandomIndex = Math.floor(
                     Math.random() * questionArray.length
                 );
+                setQuestionNumber((questionNumber) => questionNumber + 1);
                 setRandomQuestionIndex(newRandomIndex);
                 setTimer(30);
                 setLoadNewQuestion(false);
@@ -265,6 +271,7 @@ export default function Quiz({ timer, setTimer }) {
             if (selectedAnswer && selectedAnswer.correct) {
                 const updatedAnswers = [...selectedAnswers];
                 updatedAnswers[index] = true;
+
                 setSelectedAnswers(updatedAnswers);
                 setLoadNewQuestion(true);
             } else if (selectedAnswer && !selectedAnswer.correct) {

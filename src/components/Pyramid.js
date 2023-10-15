@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Pyramid({ questionNumber, setQuestionNumber }) {
+export default function Pyramid({ questionNumber }) {
     const moneyPyramid = [
         { id: 1, amount: " $ 100 " },
         { id: 2, amount: "$ 200" },
@@ -18,12 +18,12 @@ export default function Pyramid({ questionNumber, setQuestionNumber }) {
         { id: 14, amount: "$ 500000" },
         { id: 15, amount: "$ 1000000" },
     ].reverse();
-
     return (
         <div className="pyramid">
             <ul className="moneyList">
                 {moneyPyramid.map((m) => (
                     <li
+                        key={m.id}
                         className={
                             questionNumber === m.id
                                 ? "moneyListItem  active"
