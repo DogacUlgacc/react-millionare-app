@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function Pyramid({ questionNumber }) {
     const moneyPyramid = [
         { id: 1, amount: " $ 100 " },
