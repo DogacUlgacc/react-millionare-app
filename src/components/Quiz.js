@@ -5,7 +5,8 @@ export default function Quiz({
     setTimer,
     questionNumber,
     setQuestionNumber,
-    moneyPyramid,
+
+    setPrize,
     counter,
     setCounter,
 }) {
@@ -17,36 +18,29 @@ export default function Quiz({
     const [disabledButton, setDisabledButton] = useState(false);
     const [loadNewQuestion, setLoadNewQuestion] = useState(false);
 
-    const [millionare, setMillionare] = useState(false);
-
-    useEffect(() => {
-        if (millionare) {
-            alert("Congratulations, you are a millionaire!!");
-        }
-    });
     useEffect(() => {
         if (loadNewQuestion) {
             if (questionNumber < 15) {
-                setTimeout(() => {
+                const timerId = setTimeout(() => {
                     const newRandomIndex = Math.floor(
                         Math.random() * questionArray.length
                     );
-                    setQuestionNumber((questionNumber) => questionNumber + 1);
+                    setQuestionNumber(questionNumber + 1);
                     setRandomQuestionIndex(newRandomIndex);
                     setTimer(30);
                     setLoadNewQuestion(false);
                     setDisabledButton(false);
                     setShowCorrectAnswer(false);
                     setSelectedAnswers(
-                        Array(questionArray[0]?.answers.length).fill(null)
+                        Array(
+                            questionArray[newRandomIndex]?.answers.length
+                        ).fill(null)
                     );
                 }, 5000);
+                return () => {
+                    clearTimeout(timerId);
+                };
             }
-            setTimeout(() => {
-                if (questionNumber === 15) {
-                    setMillionare(true);
-                }
-            }, 5000);
         }
     }, [loadNewQuestion, questionArray, questionNumber]);
 
@@ -75,15 +69,8 @@ export default function Quiz({
                 setDisabledButton(true);
 
                 setInterval(() => {
-                    if (counter === 0) {
-                        alert("You won $0");
-                    } else {
-                        let temp = moneyPyramid.length - 1;
-                        alert(
-                            `You won ${moneyPyramid[temp - counter].amount} `
-                        );
-                    }
-                }, 5500);
+                    setPrize(true);
+                }, 7000);
 
                 setTimeout(() => {
                     const correctAnswerIndex = questionArray[
@@ -113,8 +100,11 @@ export default function Quiz({
                     setShowCorrectAnswer(correctAnswerIndex);
                 }, 3000);
             }
+            setInterval(() => {
+                setPrize(true);
+            }, 7000);
         }
-    }, [timer, selectedAnswers, randomQuestionIndex, questionArray]);
+    }, [timer, selectedAnswers, randomQuestionIndex, questionArray, setPrize]);
 
     const randomQuestion = () => {
         if (randomQuestionIndex === null) {

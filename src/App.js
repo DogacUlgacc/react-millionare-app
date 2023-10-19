@@ -3,7 +3,7 @@ import { useState } from "react";
 import Quiz from "./components/Quiz";
 import Timer from "./components/Timer";
 import Pyramid from "./components/Pyramid";
-import Prize from "./components/Prize";
+
 function App() {
     const [timer, setTimer] = useState(30);
     const [questionNumber, setQuestionNumber] = useState(0);
@@ -248,10 +248,11 @@ function App() {
         { id: 14, amount: "$ 500000" },
         { id: 15, amount: "$ 1000000" },
     ].reverse();
-
     const [counter, setCounter] = useState(0);
-    return (
-        { <div className="app">
+    const [prize, setPrize] = useState(false);
+    let temp = moneyPyramid.length - 1;
+    return !prize ? (
+        <div className="app">
             <div className="main">
                 <Timer timer={timer} setTimer={setTimer} />
                 <Quiz
@@ -263,6 +264,8 @@ function App() {
                     questionArray={questionArray}
                     counter={counter}
                     setCounter={setCounter}
+                    prize={prize}
+                    setPrize={setPrize}
                 />
             </div>
             <Pyramid
@@ -270,7 +273,13 @@ function App() {
                 setQuestionNumber={setQuestionNumber}
                 moneyPyramid={moneyPyramid}
             />
-        </div>}
+        </div>
+    ) : (
+        <div className="prize">
+            <div className="prize-amount">
+                You won <span>{moneyPyramid[temp - counter].amount}!</span>
+            </div>
+        </div>
     );
 }
 
