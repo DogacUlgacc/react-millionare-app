@@ -1,70 +1,45 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Visit website for this app : https://dogac-millionare-app.netlify.app
 
-## Available Scripts
+Millionaire Quiz Application
+Overview
+The Millionaire Quiz Application is a React-based recreation of the popular TV show "Who Wants to Be a Millionaire?" It allows users to answer a series of trivia questions and accumulate prize money as they progress through the game. However, incorrect answers can drop the player back to a lower prize tier.
 
-In the project directory, you can run:
+The application is composed of several key components:
 
-### `npm start`
+App.js: This is the main application component responsible for the core game logic. It orchestrates the flow of the game and renders other essential components.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Pyramid.js: This component displays the current prize tier of the player.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Quiz.js: This component handles the presentation of questions, user input, and validation of answers.
 
-### `npm test`
+Timer.js: The timer component that counts down the remaining time for each question.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Prerequisites
+Before you can run this project in your local development environment, ensure you have the following prerequisites:
 
-### `npm run build`
+Node.js
+npm (Node Package Manager)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Game Mechanics
+The Millionaire Quiz Application closely mimics the structure and mechanics of the famous TV show "Who Wants to Be a Millionaire?" Players progress through the game by answering a series of multiple-choice questions. Here's how the game typically works:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Question Sequence: Players start with an easy question and progress through a series of increasingly difficult questions, each associated with a specific prize amount.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Time Limit: Each question has a time limit for answering. If the time expires, the game is considered over.
 
-### `npm run eject`
+Winning Tiers: The game features a prize pyramid with increasing values for each question answered correctly. Players earn and retain the prize amount associated with the last correctly answered question.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Safety Nets: At certain points in the game, the player reaches a "safety net" prize level. If they answer a question correctly after reaching a safety net, they are guaranteed to win at least that amount.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Wrong Answers: If a player answers a question incorrectly, they drop back to a lower prize tier, typically losing significant portions of their winnings.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Application Components : 
+Timed Responses: It tracks the time remaining for each question and enforces the time limit.
+Answer Validation: The component validates user-selected answers, manages the lifelines, and tracks the player's progress.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Author
+[Dogac Ulgac]
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Contact
+For inquiries or support, you can reach out to ulgac1907@gmail.com
