@@ -5,7 +5,6 @@ export default function Quiz({
     setTimer,
     questionNumber,
     setQuestionNumber,
-
     setPrize,
     counter,
     setCounter,

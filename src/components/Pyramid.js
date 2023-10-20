@@ -3,7 +3,7 @@ export default function Pyramid({ questionNumber, moneyPyramid }) {
         <div className="pyramid">
             <ul className="moneyList">
                 {moneyPyramid.map(
-                    (m, index) =>
+                    (m) =>
                         m.id !== 0 && (
                             <li
                                 key={m.id}
