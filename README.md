@@ -5,9 +5,15 @@ Millionaire Quiz Application
 Overview
 The Millionaire Quiz Application is a React-based recreation of the popular TV show "Who Wants to Be a Millionaire?" It allows users to answer a series of trivia questions and accumulate prize money as they progress through the game. However, incorrect answers can drop the player back to a lower prize tier.
 
-![Ekran görüntüsü 2023-10-20 135352](https://github.com/DogacUlgacc/react-millionare-app/assets/118834752/181734e7-9609-46bf-9028-3771b2b7e6f1)
-![Ekran görüntüsü 2023-10-20 135343](https://github.com/DogacUlgacc/react-millionare-app/assets/118834752/7415ec64-20ab-451a-8395-1a6ffd10816f)
+If the correct answer is chosen:
 ![Ekran görüntüsü 2023-10-20 135244](https://github.com/DogacUlgacc/react-millionare-app/assets/118834752/927f040e-49b9-442d-b0da-54204afed008)
+
+If the wrong answer is chosen:
+![Ekran görüntüsü 2023-10-20 135343](https://github.com/DogacUlgacc/react-millionare-app/assets/118834752/7415ec64-20ab-451a-8395-1a6ffd10816f)
+
+Game is over: 
+![Ekran görüntüsü 2023-10-20 135352](https://github.com/DogacUlgacc/react-millionare-app/assets/118834752/181734e7-9609-46bf-9028-3771b2b7e6f1)
+
 The application is composed of several key components:
 
 App.js: This is the main application component responsible for the core game logic. It orchestrates the flow of the game and renders other essential components.
